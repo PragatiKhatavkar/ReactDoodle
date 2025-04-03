@@ -1,0 +1,563 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Canvas Styles */
+#canvasContainers {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    transition: margin 0.3s ease;
+}
+
+canvas {
+    position: absolute;
+}
+
+#myCanvas {
+    z-index: 1;
+}
+
+#canvas-grid {
+    position: absolute !important;
+    border-radius: 5px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* App Logo - Now Independent */
+.app-logo {
+    position: absolute;
+    top: 5px;
+    left: 0;
+    z-index: 20;
+}
+
+/* App Logo and Tag */
+.logo-tag {
+    display: flex;
+    align-items: center;
+    background-color: rgba(225, 225, 225, 0.9);
+    border: 1px solid #dee2e6;
+    border-radius: 0 6px 6px 0;
+    padding: 0px 10px 0px 0px;
+    margin: 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    height: 50px;
+}
+
+
+.logo-image {
+    height: 50px;
+    width: 50px;
+    margin: 0;
+    padding: 0;
+}
+
+.app-logo h1 {
+    font-size: 18px;
+    color: #A020F0;
+    font-weight: 600;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+/* Toolbar Actions - Now Independent */
+.toolbar-actions {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: rgba(248, 249, 250, 0.9);
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 8px 15px;
+    z-index: 20;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Hamburger Menu - Independent and Circular */
+.hamburger-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 30;
+    background-color: white;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.hamburger-icon i {
+    font-size: 20px;
+    color: #333;
+    transition: color 0.2s;
+}
+
+/* .hamburger-icon:hover i {
+    color: #007bff;
+} */
+
+.hamburger-icon:hover i {
+    color:#fc03a5;
+}
+
+
+/* Other Icons Group */
+.toolbar-icons-group {
+    position: absolute;
+    top: 10px;
+    right: 60px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: rgba(248, 249, 250, 0.9);
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 8px 12px;
+    z-index: 20;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Properties Toggle */
+.properties-toggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.properties-toggle i {
+    font-size: 18px;
+    cursor: pointer;
+    color: #555;
+    transition: all 0.2s;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 8px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.properties-toggle i:hover {
+    color: #fc03a5;
+    transform: scale(1.05);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Left Sidebar */
+.left-sidebar {
+    position: absolute;
+    top: 55px;
+    left: 0;
+    margin-top: 30px;
+    height: auto;
+    width: 60px;
+    background-color: rgba(248, 249, 250, 0.9);
+    border: 1px solid #dee2e6;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 12px 10px 4px;
+    z-index: 10;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+}
+
+/* Right Sidebar */
+.right-sidebar {
+    position: absolute;
+    top: 70px;
+    right: 0;
+    height: calc(100vh - 90px);
+    width: 255px;
+    background-color: rgba(248, 249, 250, 0.9);
+    border: 1px solid #dee2e6;
+    border-radius: 8px 0 0 8px;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(0);
+}
+
+
+.right-sidebar.closed {
+    transform: translateX(100%);
+}
+
+.properties-panel {
+    padding: 15px;
+    overflow-y: auto;
+    height: 100%;
+}
+
+.properties-panel h2 {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 15px;
+    font-weight: 500;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+
+/* Properties Content */
+.properties-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.property-section {
+    margin-bottom: 10px;
+}
+
+.property-section h3 {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+/* Color Picker */
+.color-picker-trigger {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.color-picker-trigger:hover {
+    background-color: #e6e6e6;
+}
+
+.color-picker-trigger.selected {
+    background-color: #e6e6e6;
+    border-color: #888888;
+}
+
+.color-picker-trigger span {
+    font-size: 14px;
+    color: #555;
+}
+
+/* Opacity Section */
+.opacitySection {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.opacitySection input {
+    flex-grow: 1;
+}
+
+.opacitySection span {
+    font-size: 14px;
+    color: #555;
+    width: 30px;
+    text-align: center;
+}
+
+/* Line Width Options */
+.line-width-options {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.line-width-options button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding: 8px;
+    flex: 1;
+    min-width: 60px;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.line-width-options button.selected {
+    background-color: #e6e6e6;
+    border-color: #888888;
+}
+
+.line-preview {
+    width: 30px;
+    background-color: #333;
+    border-radius: 2px;
+}
+
+.line-preview.thin {
+    height: 1px;
+}
+
+.line-preview.medium {
+    height: 3px;
+}
+
+.line-preview.thick {
+    height: 6px;
+}
+
+/* Background Color Options */
+.background-color-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+
+.bg-option {
+    position: relative;
+    height: 30px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+/* Removed selected background color highlighting */
+
+.bg-option span {
+    font-size: 12px;
+    font-weight: 500;
+    z-index: 1;
+}
+
+.bg-option.white {
+    background-color: rgb(255, 255, 255);
+    color: #333;
+    border: 1px solid #ddd;
+}
+
+.bg-option.light-red {
+    background-color: rgb(255, 201, 201);
+    color: #333;
+}
+
+.bg-option.yellow {
+    background-color: rgb(255, 236, 153);
+    color: #333;
+}
+
+.bg-option.blue {
+    background-color: rgb(165, 216, 255);
+    color: #333;
+}
+
+/* Hamburger Menu - Modified for right sidebar */
+.hamburgerMenu {
+    position: relative;
+    width: 100%;
+}
+
+/* .hamburgerMenu i {
+    font-size: 20px;
+    cursor: pointer;
+    color: #333;
+    transition: color 0.2s;
+}
+
+.hamburgerMenu i:hover {
+    color: #fc03a5;
+} */
+
+/* Menu Content - Modified for right sidebar */
+.menuContent {
+    width: 100%;
+    background-color: white;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 15px;
+    margin-top: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.colorSection, .opacitySection, .lineWidthSection {
+    margin-bottom: 15px;
+}
+
+.colorPalette {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.colorPickerWrapper {
+    margin-top: 10px;
+}
+
+/* Sidebar Sections */
+.sidebar-section {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.sidebar-section h2 {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+/* Tool Groups */
+.tool-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+    padding-left: 4px;
+}
+
+.tool-group i {
+    font-size: 18px;
+    cursor: pointer;
+    color: #555;
+    transition: all 0.2s;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    padding: 8px;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Selected styles for shapes and tools */
+.tool-group i.selected,
+.tool-group .selected,
+.tool-group button.selected,
+.tool-group div.selected {
+    background-color: #e6e6e6;
+    border-color: #888888;
+}
+
+.tool-group i:hover {
+    color: #007bff;
+    transform: scale(1.05);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Undo/Redo Controls - Now in top toolbar */
+.undo-redo-controls {
+    display: none; /* Hide the original container */
+}
+
+.undo-redo-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Download Container */
+.download-container {
+    display: flex;
+    justify-content: center;
+}
+
+/* Grid Toggle */
+.grid-toggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Styling for buttons */
+button {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button:hover {
+    background-color: #e9ecef;
+    transform: scale(1.05);
+}
+
+button i {
+    color: #555;
+}
+
+button:hover i {
+    color: #007bff;
+}
+
+/* Grid Icon */
+#grid-icon {
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    padding: 2px;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    background-color: #f8f9fa;
+}
+
+#grid-icon:hover {
+    transform: scale(1.1);
+    background-color: #e9ecef;
+}
+
+/* Eraser */
+.canvas-eraser {
+    cursor: crosshair;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #shapesNav {
+        width: 200px;
+    }
+    
+    .shape-tools, .drawing-tools {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 576px) {
+    #shapesNav {
+        width: 60px;
+        padding: 10px 5px;
+    }
+    
+    .app-header h1, .shapes-section h2, .drawing-tools-section h2 {
+        display: none;
+    }
+    
+    .shape-tools, .drawing-tools {
+        grid-template-columns: 1fr;
+    }
+}
